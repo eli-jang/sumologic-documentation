@@ -1,24 +1,24 @@
-### ST Hub + Spoke + BWAN Clients
+### ST Hub + Hub in AWS + Spoke + BWAN Clients
 Good: No attack surface and remote user can connect to SD WAN.  
 Bad: High cost
 ```mermaid
 flowchart LR
     RemotePC[Remote PC]
     STHub[ST Hub Cloud]
-    AWSspoke[AWS Spoke]
+    AWSHub[AWS Hub]
     Server[Server in AWS]
     BranchPC1[Branch PC1]
     BranchPC2[Branch PC2]
     BranchSpoke1[Branch Spoke1]
     BranchSpoke2[Branch Spoke2]
 
-    RemotePC --> STHub
-    STHub --> AWSspoke
-    AWSspoke --> Server
-    BranchPC1 --> BranchSpoke1
-    BranchPC2 --> BranchSpoke2
-    BranchSpoke1 --> STHub
-    BranchSpoke2 --> STHub
+    RemotePC <--> STHub
+    STHub <--> AWSHub
+    AWSHub <--> Server
+    BranchPC1 <--> BranchSpoke1
+    BranchPC2 <--> BranchSpoke2
+    BranchSpoke1 <--> AWSHub
+    BranchSpoke2 --> AWSHub
 ```
 ### Hub in AWS + Spoke + BWAN Client
 Good: low cost and remote users can connec to SD WAN.  
@@ -33,12 +33,12 @@ flowchart LR
     BranchSpoke1[Branch Spoke1]
     BranchSpoke2[Branch Spoke2]
 
-    RemotePC --> AWSHub
-    AWSHub --> Server
-    BranchPC1 --> BranchSpoke1
-    BranchPC2 --> BranchSpoke2
-    BranchSpoke1 --> AWSHub
-    BranchSpoke2 --> AWSHub
+    RemotePC <--> AWSHub
+    AWSHub <--> Server
+    BranchPC1 <--> BranchSpoke1
+    BranchPC2 <--> BranchSpoke2
+    BranchSpoke1 <--> AWSHub
+    BranchSpoke2 <--> AWSHub
 ```
 ### Hub in AWS + Spoke only
 Good: no attack surface and low cost.  
@@ -52,9 +52,11 @@ flowchart LR
     BranchSpoke1[Branch Spoke1]
     BranchSpoke2[Branch Spoke2]
 
-    AWSHub --> Server
-    BranchPC1 --> BranchSpoke1
-    BranchPC2 --> BranchSpoke2
-    BranchSpoke1 --> AWSHub
-    BranchSpoke2 --> AWSHub
+    AWSHub <--> Server
+    BranchPC1 <--> BranchSpoke1
+    BranchPC2 <--> BranchSpoke2
+    BranchSpoke1 <--> AWSHub
+    BranchSpoke2 <--> AWSHub
 ```
+
+
